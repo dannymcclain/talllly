@@ -1,5 +1,8 @@
 <script>
-
+// import { emoji } from "../emoji";
+import { tallllys } from "../stores.js";
+import { emoji } from "../stores.js";
+// let emoji = emojiList;
 let tallllies = [
         { emoji: '🛸', title: 'UFO sightings', count: 1, id: 'a' },
         { emoji: '👽', title: 'Alien abductions', count: 7, id: 'b' },
@@ -36,10 +39,30 @@ const increment = function(talllly) {
         <button on:click={() => increment(talllly)}>+</button>
     {/each}
 </section>
-
+<section class="emoji">
+    {#each $emoji as em, i}
+        <p>{em}</p>
+    {/each}
+</section>
 <style>
 h2 {
     display: flex;
     flex-wrap: wrap;
+}
+
+.emoji {
+    font-family: "Apple Color Emoji";
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+}
+.emoji p {
+    margin: 0;
+    padding: 0;
+    transform: scale(1);
+    transition: transform 200ms cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+.emoji p:hover {
+    transform: scale(1.5);
 }
 </style>
