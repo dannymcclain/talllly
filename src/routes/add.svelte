@@ -1,33 +1,46 @@
-<script>
+<script lang='ts'>
     import { emoji } from "../stores.js";
     import { tallllys } from "../stores.js";
-
     import { v4 as uuidv4 } from 'uuid';
+    import { goto } from '$app/navigation';
+    import { onMount } from 'svelte';
 
     let title;
     let titleEmoji;
     let visible = false;
 
-    function log() {
-        console.log(titleEmoji, title);
+    function getRandomNum(num) {
+        return Math.floor(Math.random() * num)
     }
 
-    function createTally(data) {
-        let count = 1;
-        let emoji = titleEmoji;
-        let id = uuidv4();
-        let tallllyTitle = title;
-    
-        let newTallllies = Array.from($tallllys);
-        newTallllies.forEach(function(talllly){
-            if (talllly.id === id){
-                talllly.count = count;
-                talllly.emoji = emoji;
-                talllly.id = id;
-                talllly.title = title;
+    let randomEmoji:string;
+    onMount(() => {
+            randomEmoji = $emoji[getRandomNum($emoji.length)]
+            console.log(randomEmoji);
+            titleEmoji = randomEmoji;
+    });
+  
+    function createTally() {
+        if (title){
+            let newTalllly = {
+                emoji: titleEmoji,
+                title: title,
+                count: 1,
+                id: uuidv4()
             }
-            $tallllys = newTallllies;
-        })
+        
+            let newTallllies = Array.from($tallllys);
+    
+            newTallllies.unshift(newTalllly);
+    
+            tallllys.update(current => newTallllies);
+
+            localStorage.setItem("tallllys", JSON.stringify($tallllys));
+
+            goto('/');
+        } else {
+            return;
+        }
     }
 </script>
 <!-- <section>
@@ -37,9 +50,9 @@
 <form>
     <input type="text" bind:value={title} />
 </form>
-<button on:click={() => visible = true}>Show emoji</button>
+<button on:click={() => visible = true}>{titleEmoji}</button>
 <button on:click={createTally}>Add</button>
-<button on:click={log}>Log</button>
+
 {#if visible}
     <section class="emoji">
         {#each $emoji as emo}

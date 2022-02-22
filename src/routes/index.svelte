@@ -1,6 +1,14 @@
 <script lang="ts">
     import Talllly from '../components/Talllly.svelte';
     import { tallllys } from "../stores.js";
+    import { onMount } from 'svelte';
+
+    onMount(() => {
+            const data = JSON.parse(localStorage.getItem("tallllys"));
+            if (data) {
+            tallllys.update(entry => data);
+        }
+    });
 </script>
 
 <h1>Tally</h1>

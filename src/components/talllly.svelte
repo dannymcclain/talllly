@@ -16,6 +16,10 @@
                 console.log(talllly.emoji, talllly.count);
             }
             $tallllys = newTallllies;
+
+            tallllys.update(current => newTallllies);
+
+            localStorage.setItem("tallllys", JSON.stringify($tallllys));
         })
     }
 
