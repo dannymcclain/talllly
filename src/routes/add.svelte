@@ -2,22 +2,43 @@
     import { emoji } from "../stores.js";
     import { tallllys } from "../stores.js";
 
-    let title = 'Hi';
-    let titleEmoji = 'Yo';
+    import { v4 as uuidv4 } from 'uuid';
+
+    let title;
+    let titleEmoji;
     let visible = false;
 
     function log() {
         console.log(titleEmoji, title);
     }
+
+    function createTally(data) {
+        let count = 1;
+        let emoji = titleEmoji;
+        let id = uuidv4();
+        let tallllyTitle = title;
+    
+        let newTallllies = Array.from($tallllys);
+        newTallllies.forEach(function(talllly){
+            if (talllly.id === id){
+                talllly.count = count;
+                talllly.emoji = emoji;
+                talllly.id = id;
+                talllly.title = title;
+            }
+            $tallllys = newTallllies;
+        })
+    }
 </script>
-<section>
+<!-- <section>
     <p>{title}</p>
     <p>{titleEmoji}</p>
-</section>
+</section> -->
 <form>
     <input type="text" bind:value={title} />
 </form>
 <button on:click={() => visible = true}>Show emoji</button>
+<button on:click={createTally}>Add</button>
 <button on:click={log}>Log</button>
 {#if visible}
     <section class="emoji">
@@ -44,11 +65,12 @@
     margin: 0;
     border: none;
     background: transparent;
-    transform: scale(1);
-    transition: transform 200ms cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    /* transform: scale(1);
+    transition: transform 200ms cubic-bezier(0.175, 0.885, 0.32, 1.275); */
 }
 
 .emoji button:hover {
-    transform: scale(1.25);
+    /* transform: scale(1.25); */
+    background: #f5f5f5;
 }
 </style>

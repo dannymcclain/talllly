@@ -1,6 +1,5 @@
 <script>
     export let talllly;
-
     import { tallllys } from "../stores.js";
 
     const increment = function(talllly) {
@@ -22,11 +21,7 @@
 
 </script>
 
-<h3>{talllly.title} <small>({talllly.id})</small></h3>
-        <h2>
-            {#each Array(talllly.count) as _, i}
-            {talllly.emoji}
-            {/each}
-        </h2>
-        <p>{talllly.count}</p>
-        <button on:click={() => increment(talllly)}>+</button>
+<h2>{talllly.emoji}</h2>
+<h3>{talllly.count}</h3>
+<p>{talllly.title}</p>
+<button on:click={() => increment(talllly)}>+</button>
