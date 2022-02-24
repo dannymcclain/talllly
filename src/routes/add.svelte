@@ -52,6 +52,11 @@
         }
 	}
 
+    function selectEmoji(emo) {
+        titleEmoji = emo;
+        visible = false;
+    }
+
     onMount(() => {
             randomEmoji = $emoji[getRandomNum($emoji.length)]
             titleEmoji = randomEmoji;
@@ -72,7 +77,7 @@
         <button on:click={() => visible = false}>x</button>
         <section class="emoji">
             {#each $emoji as emo}
-            <button on:click={() => titleEmoji = emo}>{emo}</button>
+            <button on:click={() => selectEmoji(emo)}>{emo}</button>
             {/each}
         </section>
     </div>

@@ -36,16 +36,27 @@
         }
         return actions[type]();
     }
+
+    function editTalllly(tal) {
+        console.log(tal)
+    }
 </script>
 
-<h2>{talllly.emoji}</h2>
-<h3>{talllly.count}</h3>
-<p>{talllly.title}</p>
+<div class="content" on:click={() => editTalllly(talllly)}>
+    <h2>{talllly.emoji}</h2>
+    <h3>{talllly.count}</h3>
+    <p>{talllly.title}</p>
+</div>
 <button on:click={() => updateCount('deincrement', talllly)}>-</button>
 <button on:click={() => updateCount('increment', talllly)}>+</button>
 
 <style>
     h2 {
         font-family: "Apple Color Emoji";
+    }
+    .content {
+        display: flex;
+        flex-direction: row;
+        cursor: pointer;
     }
 </style>
