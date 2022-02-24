@@ -5,20 +5,17 @@
     import { goto } from '$app/navigation';
     import { onMount } from 'svelte';
 
+    let randomEmoji:string;
+
     let title;
     let titleEmoji;
     let visible = false;
 
+    let key;
+
     function getRandomNum(num) {
         return Math.floor(Math.random() * num)
     }
-
-    let randomEmoji:string;
-    onMount(() => {
-            randomEmoji = $emoji[getRandomNum($emoji.length)]
-            console.log(randomEmoji);
-            titleEmoji = randomEmoji;
-    });
   
     function createTally() {
         if (title){
@@ -42,16 +39,34 @@
             return;
         }
     }
+
+    function handleKeydown(event) {
+		key = event.key;
+        if (key === 'Enter'){
+            createTally();
+        } else if (key === 'Escape') {
+            goto('/')
+        } else {
+            return;
+        }
+	}
+
+    onMount(() => {
+            randomEmoji = $emoji[getRandomNum($emoji.length)]
+            titleEmoji = randomEmoji;
+    });
 </script>
+<svelte:window on:keydown={handleKeydown}/>
 <!-- <section>
     <p>{title}</p>
     <p>{titleEmoji}</p>
 </section> -->
-<form>
+<div>
     <input type="text" bind:value={title} />
-</form>
+</div>
 <button on:click={() => visible = true}>{titleEmoji}</button>
 <button on:click={createTally}>Add</button>
+<button on:click={() => goto('/')}>Cancel</button>
 
 {#if visible}
     <section class="emoji">
