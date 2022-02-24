@@ -42,21 +42,52 @@
     }
 </script>
 
-<div class="content" on:click={() => editTalllly(talllly)}>
-    <h2>{talllly.emoji}</h2>
-    <h3>{talllly.count}</h3>
-    <p>{talllly.title}</p>
+<div class="talllly">
+    <div class="content" on:click={() => editTalllly(talllly)}>
+        <h2>{talllly.emoji}</h2>
+        <div class="details">
+            <h3>{talllly.count}</h3>
+            <p>{talllly.title}</p>
+        </div>
+    </div>
+    <div class="actions">
+        <button on:click={() => updateCount('deincrement', talllly)}>-</button>
+        <button on:click={() => updateCount('increment', talllly)}>+</button>
+    </div>
 </div>
-<button on:click={() => updateCount('deincrement', talllly)}>-</button>
-<button on:click={() => updateCount('increment', talllly)}>+</button>
 
 <style>
+    .talllly {
+        margin-bottom: 0;
+        display: flex;
+        flex-direction: row;
+        flex-wrap: nowrap;
+        justify-content: space-between;
+        align-items: center;
+    }
     h2 {
         font-family: "Apple Color Emoji";
+    }
+    h3 {
+        margin: 0;
+        padding: 0;
+        line-height: 1;
+    }
+    p {
+        margin: 0;
+        padding: 0;
+        line-height: 1;
     }
     .content {
         display: flex;
         flex-direction: row;
+        justify-content: flex-start;
+        align-items: center;
         cursor: pointer;
+        gap: 1rem;
+    }
+    .details {
+        display: flex;
+        flex-direction: column;
     }
 </style>
