@@ -85,6 +85,7 @@
         align-items: center;
         cursor: pointer;
         gap: 1rem;
+        flex-grow: 2;
     }
     .details {
         display: flex;
