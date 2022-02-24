@@ -29,6 +29,7 @@
   },
   "type": "module",
   "dependencies": {
+    "svelte-emoji-selector": "file:../svelte-emoji-selector",
     "uuid": "^8.3.2"
   }
 }

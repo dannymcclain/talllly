@@ -57,10 +57,7 @@
     });
 </script>
 <svelte:window on:keydown={handleKeydown}/>
-<!-- <section>
-    <p>{title}</p>
-    <p>{titleEmoji}</p>
-</section> -->
+
 <div>
     <input type="text" bind:value={title} />
 </div>
