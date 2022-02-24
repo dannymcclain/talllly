@@ -3,6 +3,7 @@
     import { tallllys } from "../stores.js";
     import { v4 as uuidv4 } from 'uuid';
     import { goto } from '$app/navigation';
+    import { fly } from 'svelte/transition';
     import { onMount } from 'svelte';
 
     let randomEmoji:string;
@@ -66,25 +67,46 @@
 <button on:click={() => goto('/')}>Cancel</button>
 
 {#if visible}
-    <section class="emoji">
-        {#each $emoji as emo}
-        <button on:click={() => titleEmoji = emo}>{emo}</button>
-        {/each}
-    </section>
+    <div transition:fly={{y: 100, duration: 300}} class="popup">
+        
+        <button on:click={() => visible = false}>x</button>
+        <section class="emoji">
+            {#each $emoji as emo}
+            <button on:click={() => titleEmoji = emo}>{emo}</button>
+            {/each}
+        </section>
+    </div>
 {/if}
 
 <style>
+.popup {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    max-width: 100vw;
+    max-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: red;
+}
 .emoji {
     display: flex;
     flex-wrap: wrap;
     gap: .5rem;
-    height: 400px;
+    padding: 2rem;
     overflow-y: scroll;
+    width: 100%;
+    height: 100%;
+    margin: auto;
+    background: white;
 }
 
 .emoji button {
     font-family: "Apple Color Emoji";
-    font-size: 2rem;
+    font-size: 1.5rem;
     outline: none;
     /* padding: .5rem; */
     margin: 0;

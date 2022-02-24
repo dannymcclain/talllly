@@ -2,7 +2,7 @@
     export let talllly;
     import { tallllys } from "../stores.js";
 
-    function editTalllly(type, talllly){
+    function updateCount(type, talllly){
         let count = talllly.count;
         let emoji = talllly.emoji;
         let id = talllly.id;
@@ -41,8 +41,8 @@
 <h2>{talllly.emoji}</h2>
 <h3>{talllly.count}</h3>
 <p>{talllly.title}</p>
-<button on:click={() => editTalllly('deincrement', talllly)}>-</button>
-<button on:click={() => editTalllly('increment', talllly)}>+</button>
+<button on:click={() => updateCount('deincrement', talllly)}>-</button>
+<button on:click={() => updateCount('increment', talllly)}>+</button>
 
 <style>
     h2 {
