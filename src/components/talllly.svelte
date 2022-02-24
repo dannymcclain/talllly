@@ -43,3 +43,9 @@
 <p>{talllly.title}</p>
 <button on:click={() => editTalllly('deincrement', talllly)}>-</button>
 <button on:click={() => editTalllly('increment', talllly)}>+</button>
+
+<style>
+    h2 {
+        font-family: "Apple Color Emoji";
+    }
+</style>
