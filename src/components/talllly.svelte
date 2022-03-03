@@ -1,6 +1,8 @@
 <script>
     export let talllly;
     import { tallllys } from "../stores.js";
+    import { fly } from "svelte/transition";
+    import { backInOut } from "svelte/easing"
 
     function updateCount(type, talllly){
         let count = talllly.count;
@@ -37,10 +39,30 @@
         return actions[type]();
     }
 
+    let editing = false;
+    let currentTitle;
+    let currentCount;
+    let currentEmoji;
+
     function editTalllly(tal) {
+        editing = false;
+        currentTitle = tal.title;
+        currentCount = tal.count;
+        currentEmoji = tal.emoji;
+        editing = true;
         console.log(tal)
     }
 </script>
+{#if editing}
+<section class="overlay">
+    <div transition:fly={{y: 100, duration: 400, easing: backInOut}} class="modal">
+        <div>{currentEmoji}</div>
+        <input type="text" bind:value={currentTitle} />
+        <input type="number" bind:value={currentCount} />
+        <button on:click={() => editing = false}>Cancel</button>
+    </div>
+</section>
+{/if}
 
 <div class="talllly">
     <div class="content" on:click={() => editTalllly(talllly)}>
@@ -57,6 +79,22 @@
 </div>
 
 <style>
+    .overlay {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100vw;
+        min-height: 100vh;
+        background: rgba(0,0,0,0.4);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+    .modal {
+        background: #fff;
+        padding: 40px;
+        margin: 0 auto;
+    }
     .talllly {
         margin-bottom: 0;
         display: flex;
